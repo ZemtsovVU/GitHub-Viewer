@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GitHub Viewer</string>
+    <string name="tab_one">One</string>
+    <string name="tab_two">Two</string>
+    <string name="tab_three">Three</string>
+    <string name="tab_four">Four</string>
+    <string name="tab_five">Five</string>
 </resources>
