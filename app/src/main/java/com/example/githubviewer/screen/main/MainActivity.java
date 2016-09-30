@@ -23,12 +23,17 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.bottom_navigation)
     protected AHBottomNavigation bottomNavigation;
 
+    private MenuFactory menuFactory;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        menuFactory = new MenuFactory();
+
         initBottomNavigation();
-        showFragment(MenuFactory.getInstance().getFragment(START_MENU_POSITION));
+        showFragment(menuFactory.getFragment(START_MENU_POSITION));
     }
 
     private void initBottomNavigation() {
@@ -42,7 +47,7 @@ public class MainActivity extends BaseActivity {
                 return false;
             }
 
-            showFragment(MenuFactory.getInstance().getFragment(position));
+            showFragment(menuFactory.getFragment(position));
             return true;
         });
     }

@@ -15,19 +15,6 @@ import com.example.githubviewer.screen.main.two.TwoPresenter;
 
 public final class MenuFactory {
 
-    private static MenuFactory instance;
-
-    public static MenuFactory getInstance() {
-        if (instance == null) {
-            synchronized (MenuFactory.class) {
-                if (instance == null) {
-                    instance = new MenuFactory();
-                }
-            }
-        }
-        return instance;
-    }
-
     /**
      * Создаются фрагменты и их презентеры, соответствующие пунктам меню R.menu.tabs.
      */
