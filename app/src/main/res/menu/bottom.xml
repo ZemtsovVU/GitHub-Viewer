@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
+
+    <item
+        android:id="@+id/one_menu_item"
+        android:icon="@mipmap/ic_launcher"
+        android:title="One"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/two_menu_item"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Two"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/three_menu_item"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Three"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/four_menu_item"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Four"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/five_menu_item"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Five"
+        app:showAsAction="always" />
+
+</menu>

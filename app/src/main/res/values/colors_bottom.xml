@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bottom_one">#CDDC39</color>
+    <color name="bottom_two">#FFEB3B</color>
+    <color name="bottom_three">#FFC107</color>
+    <color name="bottom_four">#FF9800</color>
+    <color name="bottom_five">#FF5722</color>
+
+    <array name="bottom_colors">
+        <item>@color/bottom_one</item>
+        <item>@color/bottom_two</item>
+        <item>@color/bottom_three</item>
+        <item>@color/bottom_four</item>
+        <item>@color/bottom_five</item>
+    </array>
+
+</resources>
