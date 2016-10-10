@@ -4,6 +4,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void addFragment(@NonNull Fragment fragment, @IdRes int container) {
         getSupportFragmentManager()
                 .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .replace(container, fragment, fragment.getClass().getSimpleName())
                 .commit();
     }

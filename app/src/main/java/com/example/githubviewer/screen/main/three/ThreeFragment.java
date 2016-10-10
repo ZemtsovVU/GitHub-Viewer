@@ -64,4 +64,9 @@ public class ThreeFragment extends BaseFragment implements ThreeContract.View {
     public void showMessage(String message) {
         Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
     }
+
+    @Override
+    public boolean isActive() {
+        return isAdded();
+    }
 }

@@ -65,4 +65,9 @@ public class TwoFragment extends BaseFragment implements TwoContract.View {
     public void showMessage(String message) {
         Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
     }
+
+    @Override
+    public boolean isActive() {
+        return isAdded();
+    }
 }

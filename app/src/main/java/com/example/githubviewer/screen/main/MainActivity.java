@@ -2,14 +2,12 @@ package com.example.githubviewer.screen.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
-import com.example.githubviewer.base.BaseActivity;
 import com.example.githubviewer.R;
+import com.example.githubviewer.base.BaseActivity;
 
 import butterknife.BindView;
 
@@ -33,7 +31,7 @@ public class MainActivity extends BaseActivity {
         menuFactory = new MenuFactory();
 
         initBottomNavigation();
-        showFragment(menuFactory.getFragment(START_MENU_POSITION));
+        addFragment(menuFactory.getFragment(START_MENU_POSITION), containerViewGroup.getId());
     }
 
     private void initBottomNavigation() {
@@ -47,16 +45,8 @@ public class MainActivity extends BaseActivity {
                 return false;
             }
 
-            showFragment(menuFactory.getFragment(position));
+            addFragment(menuFactory.getFragment(position), containerViewGroup.getId());
             return true;
         });
-    }
-
-    private void showFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .replace(containerViewGroup.getId(), fragment)
-                .commit();
     }
 }
