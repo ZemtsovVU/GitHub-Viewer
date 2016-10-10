@@ -1,6 +1,9 @@
-package com.example.githubviewer;
+package com.example.githubviewer.base;
 
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,5 +28,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         super.setContentView(view, params);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    protected void addFragment(@NonNull Fragment fragment, @IdRes int container) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(container, fragment, fragment.getClass().getSimpleName())
+                .commit();
     }
 }

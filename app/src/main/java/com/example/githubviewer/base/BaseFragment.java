@@ -1,4 +1,4 @@
-package com.example.githubviewer;
+package com.example.githubviewer.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

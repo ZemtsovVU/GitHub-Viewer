@@ -1,7 +1,7 @@
 package com.example.githubviewer.screen.main.three;
 
-import com.example.githubviewer.BasePresenter;
-import com.example.githubviewer.BaseView;
+import com.example.githubviewer.base.BasePresenter;
+import com.example.githubviewer.base.BaseView;
 
 public interface ThreeContract {
 

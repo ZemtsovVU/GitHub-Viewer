@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
-import com.example.githubviewer.BaseActivity;
+import com.example.githubviewer.base.BaseActivity;
 import com.example.githubviewer.R;
 
 import butterknife.BindView;

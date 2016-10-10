@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.githubviewer.BaseFragment;
+import com.example.githubviewer.base.BaseFragment;
 import com.example.githubviewer.R;
 
 import butterknife.BindView;
