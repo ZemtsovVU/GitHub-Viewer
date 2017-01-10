@@ -19,15 +19,5 @@
         android:icon="@mipmap/ic_launcher"
         android:title="@string/tab_three"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/four_menu_item"
-        android:icon="@mipmap/ic_launcher"
-        android:title="@string/tab_four"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/five_menu_item"
-        android:icon="@mipmap/ic_launcher"
-        android:title="@string/tab_five"
-        app:showAsAction="always" />
 
 </menu>

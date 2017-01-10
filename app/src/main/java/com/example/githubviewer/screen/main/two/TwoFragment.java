@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.githubviewer.base.BaseFragment;
+import com.example.githubviewer.screen.base.BaseFragment;
 import com.example.githubviewer.R;
 
 import butterknife.BindView;
@@ -33,13 +33,13 @@ public class TwoFragment extends BaseFragment implements TwoContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.subscribe();
+        presenter.start();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        presenter.unsubscribe();
+        presenter.stop();
     }
 
     @Nullable

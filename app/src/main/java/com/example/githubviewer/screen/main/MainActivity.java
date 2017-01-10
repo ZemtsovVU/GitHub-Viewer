@@ -7,13 +7,11 @@ import android.view.ViewGroup;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
 import com.example.githubviewer.R;
-import com.example.githubviewer.base.BaseActivity;
+import com.example.githubviewer.screen.base.BaseActivity;
 
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
-
     private static final int START_MENU_POSITION = 0;
 
     @BindView(R.id.container_view_group)
@@ -31,7 +29,7 @@ public class MainActivity extends BaseActivity {
         menuFactory = new MenuFactory();
 
         initBottomNavigation();
-        addFragment(menuFactory.getFragment(START_MENU_POSITION), containerViewGroup.getId());
+        showFragment(containerViewGroup.getId(), menuFactory.getFragment(START_MENU_POSITION));
     }
 
     private void initBottomNavigation() {
@@ -45,7 +43,7 @@ public class MainActivity extends BaseActivity {
                 return false;
             }
 
-            addFragment(menuFactory.getFragment(position), containerViewGroup.getId());
+            showFragment(containerViewGroup.getId(), menuFactory.getFragment(position));
             return true;
         });
     }

@@ -12,12 +12,12 @@ public class ThreePresenter implements ThreeContract.Presenter {
     }
 
     @Override
-    public void subscribe() {
+    public void start() {
 
     }
 
     @Override
-    public void unsubscribe() {
+    public void stop() {
 
     }
 

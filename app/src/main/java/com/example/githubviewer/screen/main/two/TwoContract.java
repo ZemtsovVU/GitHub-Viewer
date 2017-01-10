@@ -1,7 +1,7 @@
 package com.example.githubviewer.screen.main.two;
 
-import com.example.githubviewer.base.BasePresenter;
-import com.example.githubviewer.base.BaseView;
+import com.example.githubviewer.screen.base.BasePresenter;
+import com.example.githubviewer.screen.base.BaseView;
 
 public interface TwoContract {
 

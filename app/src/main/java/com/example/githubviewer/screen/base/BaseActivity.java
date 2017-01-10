@@ -1,4 +1,4 @@
-package com.example.githubviewer.base;
+package com.example.githubviewer.screen.base;
 
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -37,10 +37,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
-    protected void addFragment(@NonNull Fragment fragment, @IdRes int container) {
+    protected void showFragment(@IdRes int container, @NonNull Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .replace(container, fragment, fragment.getClass().getSimpleName())
                 .commit();
     }

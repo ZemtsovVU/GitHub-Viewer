@@ -1,4 +1,4 @@
-package com.example.githubviewer.base;
+package com.example.githubviewer.screen.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

@@ -12,12 +12,12 @@ public class OnePresenter implements OneContract.Presenter {
     }
 
     @Override
-    public void subscribe() {
+    public void start() {
 
     }
 
     @Override
-    public void unsubscribe() {
+    public void stop() {
 
     }
 
