@@ -20,9 +20,4 @@ public class UsersPresenter implements UsersContract.Presenter {
     public void stop() {
 
     }
-
-    @Override
-    public void onButtonClick() {
-        view.showMessage("Click");
-    }
 }

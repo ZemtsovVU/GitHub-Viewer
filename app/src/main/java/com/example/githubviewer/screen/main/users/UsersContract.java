@@ -10,6 +10,6 @@ public interface UsersContract {
     }
 
     interface Presenter extends BasePresenter {
-        void onButtonClick();
+
     }
 }
