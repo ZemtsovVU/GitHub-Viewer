@@ -1,4 +1,4 @@
-package com.example.githubviewer.screen.main.two;
+package com.example.githubviewer.screen.main.repos;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,18 +15,18 @@ import com.example.githubviewer.R;
 import butterknife.BindView;
 
 @SuppressWarnings("CodeBlock2Expr")
-public class TwoFragment extends BaseFragment implements TwoContract.View {
+public class ReposFragment extends BaseFragment implements ReposContract.View {
     @BindView(R.id.button)
     protected Button button;
 
-    private TwoContract.Presenter presenter;
+    private ReposContract.Presenter presenter;
 
-    public static TwoFragment newInstance() {
-        return new TwoFragment();
+    public static ReposFragment newInstance() {
+        return new ReposFragment();
     }
 
     @Override
-    public void setPresenter(@NonNull TwoContract.Presenter presenter) {
+    public void setPresenter(@NonNull ReposContract.Presenter presenter) {
         this.presenter = presenter;
     }
 

@@ -1,9 +1,9 @@
-package com.example.githubviewer.screen.main.one;
+package com.example.githubviewer.screen.main.users;
 
 import com.example.githubviewer.screen.base.BasePresenter;
 import com.example.githubviewer.screen.base.BaseView;
 
-public interface OneContract {
+public interface UsersContract {
 
     interface View extends BaseView<Presenter> {
         void showMessage(String message);

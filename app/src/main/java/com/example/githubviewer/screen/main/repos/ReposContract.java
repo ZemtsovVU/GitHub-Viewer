@@ -1,9 +1,9 @@
-package com.example.githubviewer.screen.main.two;
+package com.example.githubviewer.screen.main.repos;
 
 import com.example.githubviewer.screen.base.BasePresenter;
 import com.example.githubviewer.screen.base.BaseView;
 
-public interface TwoContract {
+public interface ReposContract {
 
     interface View extends BaseView<Presenter> {
         void showMessage(String message);

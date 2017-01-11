@@ -1,4 +1,4 @@
-package com.example.githubviewer.screen.main.one;
+package com.example.githubviewer.screen.main.about;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,19 +14,18 @@ import com.example.githubviewer.R;
 
 import butterknife.BindView;
 
-@SuppressWarnings("CodeBlock2Expr")
-public class OneFragment extends BaseFragment implements OneContract.View {
+public class AboutFragment extends BaseFragment implements AboutContract.View {
     @BindView(R.id.button)
     protected Button button;
 
-    private OneContract.Presenter presenter;
+    private AboutContract.Presenter presenter;
 
-    public static OneFragment newInstance() {
-        return new OneFragment();
+    public static AboutFragment newInstance() {
+        return new AboutFragment();
     }
 
     @Override
-    public void setPresenter(@NonNull OneContract.Presenter presenter) {
+    public void setPresenter(@NonNull AboutContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -46,7 +45,7 @@ public class OneFragment extends BaseFragment implements OneContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_one, container, false);
+        return inflater.inflate(R.layout.fragment_three, container, false);
     }
 
     @Override

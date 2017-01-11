@@ -1,12 +1,12 @@
-package com.example.githubviewer.screen.main.two;
+package com.example.githubviewer.screen.main.users;
 
 import android.support.annotation.NonNull;
 
-public class TwoPresenter implements TwoContract.Presenter {
+public class UsersPresenter implements UsersContract.Presenter {
     @NonNull
-    private TwoContract.View view;
+    private UsersContract.View view;
 
-    public TwoPresenter(@NonNull TwoContract.View view) {
+    public UsersPresenter(@NonNull UsersContract.View view) {
         this.view = view;
         this.view.setPresenter(this);
     }
