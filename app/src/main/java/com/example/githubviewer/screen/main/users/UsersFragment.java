@@ -46,7 +46,7 @@ public class UsersFragment extends BaseFragment implements UsersContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_one, container, false);
+        return inflater.inflate(R.layout.fragment_users, container, false);
     }
 
     @Override
