@@ -30,7 +30,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return CellType.get(viewType).viewHolder(parent);
+        return CellType.get(viewType).holder(parent);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
 
             @Override
-            RecyclerView.ViewHolder viewHolder(ViewGroup parent) {
+            RecyclerView.ViewHolder holder(ViewGroup parent) {
                 LayoutInflater inflater = LayoutInflater.from(parent.getContext());
                 View view = inflater.inflate(R.layout.cell_progress, parent, false);
                 return new ProgressViewHolder(view);
@@ -99,7 +99,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
 
             @Override
-            RecyclerView.ViewHolder viewHolder(ViewGroup parent) {
+            RecyclerView.ViewHolder holder(ViewGroup parent) {
                 LayoutInflater inflater = LayoutInflater.from(parent.getContext());
                 View view = inflater.inflate(R.layout.cell_ad, parent, false);
                 return new AdViewHolder(view);
@@ -128,7 +128,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
 
             @Override
-            RecyclerView.ViewHolder viewHolder(ViewGroup parent) {
+            RecyclerView.ViewHolder holder(ViewGroup parent) {
                 LayoutInflater inflater = LayoutInflater.from(parent.getContext());
                 View view = inflater.inflate(R.layout.cell_user, parent, false);
                 return new UserViewHolder(view);
@@ -168,7 +168,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         abstract int type();
 
-        abstract RecyclerView.ViewHolder viewHolder(ViewGroup parent);
+        abstract RecyclerView.ViewHolder holder(ViewGroup parent);
 
         abstract void bind(RecyclerView.ViewHolder holder, Object item);
     }
