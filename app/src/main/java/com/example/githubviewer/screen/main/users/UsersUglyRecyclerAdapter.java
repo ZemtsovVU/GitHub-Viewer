@@ -75,11 +75,21 @@ public class UsersUglyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public void setUsers(List<UserVo> users) {
         itemList.clear();
-
         itemList.addAll(users);
-        itemList.add(new ProgressVo());
-
+        decorateItemList();
         notifyDataSetChanged();
+    }
+
+    private void decorateItemList() {
+        int listSize = itemList.size();
+        int shift = 0;
+        for (int i = 0; i < listSize; i++) {
+            if (i % 7 == 0) {
+                itemList.add(i + shift, new AdVo());
+                shift++;
+            }
+        }
+        itemList.add(new ProgressVo());
     }
 
     protected static class ProgressViewHolder extends RecyclerView.ViewHolder {
