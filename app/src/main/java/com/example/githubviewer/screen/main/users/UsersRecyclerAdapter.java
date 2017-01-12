@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.githubviewer.R;
 import com.example.githubviewer.model.pojo.valueobject.AdVo;
@@ -15,6 +16,9 @@ import com.example.githubviewer.util.L;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List itemList = new ArrayList();
@@ -54,9 +58,9 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     private void decorateItemList() {
         int listSize = itemList.size();
         int shift = 0;
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 1; i < listSize; i++) { // Пропускаем 0 ячейку
             if (i % 7 == 0) {
-                itemList.add(i + shift, new AdVo());
+                itemList.add(i + shift, AdVo.newBuilder().title("Ad " + i).build());
                 shift++;
             }
         }
@@ -181,24 +185,30 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     protected static class AdViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.text_view)
+        protected TextView textView;
 
         public AdViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
 
         public void bind(AdVo ad) {
-            // Bind ad...
+            textView.setText(ad.getTitle());
         }
     }
 
     protected static class UserViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.text_view)
+        protected TextView textView;
 
         public UserViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
 
         public void bind(UserVo user) {
-            // Bind user...
+            textView.setText(user.getFirstName());
         }
     }
 }

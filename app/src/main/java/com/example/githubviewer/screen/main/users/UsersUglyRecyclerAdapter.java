@@ -85,7 +85,7 @@ public class UsersUglyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
         int shift = 0;
         for (int i = 0; i < listSize; i++) {
             if (i % 7 == 0) {
-                itemList.add(i + shift, new AdVo());
+                itemList.add(i + shift, AdVo.newBuilder().title("Ad " + i).build());
                 shift++;
             }
         }
