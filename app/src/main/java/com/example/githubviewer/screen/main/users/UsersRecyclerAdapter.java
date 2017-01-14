@@ -15,10 +15,12 @@ import com.example.githubviewer.screen.exception.NoSuchRecyclerViewTypeException
 import com.example.githubviewer.util.L;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
 
 public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List itemList = new ArrayList();
@@ -48,27 +50,70 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         return itemList.size();
     }
 
-    public void setUsers(List<UserVo> users) {
+    public void hideFooterProgress() {
+        int lastPosition = getItemCount() - 1;
+        Object item = itemList.get(lastPosition);
+        if (item instanceof ProgressVo) {
+            itemList.remove(lastPosition);
+            notifyItemRemoved(lastPosition);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void setUsers(List<UserVo> userList) {
+        if (userList == null || userList.isEmpty()) {
+            hideFooterProgress();
+            return;
+        }
+
         itemList.clear();
-        itemList.addAll(users);
-        decorateItemList();
+        itemList.addAll(decorateUserList(userList));
         notifyDataSetChanged();
     }
 
+    @SuppressWarnings("unchecked")
     public void addUsers(List<UserVo> userList) {
-        // TODO: Need to implement
+        if (userList == null || userList.isEmpty()) {
+            hideFooterProgress();
+            return;
+        }
+
+        // TODO: Fix ad positions
+
+        int lastItemCount = getItemCount();
+
+        hideFooterProgress();
+        itemList.addAll(decorateUserList(userList));
+
+        notifyItemRangeInserted(lastItemCount, getItemCount());
     }
 
-    private void decorateItemList() {
-        int listSize = itemList.size();
+    @SuppressWarnings("unchecked")
+    private List decorateUserList(List<UserVo> userList) {
+        List decoratedList = new ArrayList(userList);
+
+        int userListSize = userList.size();
         int shift = 0;
-        for (int i = 1; i < listSize; i++) { // Пропускаем 0 ячейку
+        for (int i = 1; i < userListSize; i++) {
             if (i % 7 == 0) {
-                itemList.add(i + shift, AdVo.newBuilder().title("Ad " + i).build());
+                decoratedList.add(i + shift, AdVo.newBuilder().title("Ad " + i).build());
                 shift++;
             }
         }
-        itemList.add(new ProgressVo());
+        decoratedList.add(new ProgressVo());
+
+        return decoratedList;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void cleanDecoratedItemList() {
+        Observable.from(itemList)
+                .filter(o -> o instanceof UserVo)
+                .toList()
+                .subscribe(list -> {
+                    itemList.clear();
+                    itemList.addAll((Collection) list);
+                });
     }
 
     private enum CellType {
@@ -212,7 +257,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
 
         public void bind(UserVo user) {
-            textView.setText(user.getFirstName());
+            textView.setText(user.getLogin());
         }
     }
 }

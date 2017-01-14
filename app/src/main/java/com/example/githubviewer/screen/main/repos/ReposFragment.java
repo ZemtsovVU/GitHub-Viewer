@@ -4,33 +4,21 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.githubviewer.R;
-import com.example.githubviewer.injection.ComponentProvider;
-import com.example.githubviewer.model.data.source.GitHubApi;
 import com.example.githubviewer.screen.main.BaseMainFragment;
-import com.example.githubviewer.util.GitHubHeaderLinksExtractor;
 
 import butterknife.BindView;
-import retrofit2.Response;
-import retrofit2.adapter.rxjava.Result;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class ReposFragment extends BaseMainFragment implements ReposContract.View {
-    private static final String TAG = ReposFragment.class.getSimpleName();
-
     @BindView(R.id.button)
     protected Button button;
 
     private ReposContract.Presenter presenter;
-    private boolean firstRequest = true;
-    private String nextLink;
 
     public static ReposFragment newInstance() {
         return new ReposFragment();
@@ -59,36 +47,7 @@ public class ReposFragment extends BaseMainFragment implements ReposContract.Vie
 
         });
 
-        button.setOnClickListener(v -> {
-            GitHubApi api = ComponentProvider.getInstance().getApiComponent().getGitHubApiInterface();
-
-            if (firstRequest) {
-                api.users()
-                        .map(Result::response)
-                        .doOnNext(response -> {
-                            firstRequest = false;
-                            nextLink = GitHubHeaderLinksExtractor.extractNext(response);
-                        })
-                        .map(Response::body)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(userDtoList -> {
-                            Log.d(TAG, "initListeners: ");
-                        });
-            } else {
-                api.usersPaginate(nextLink)
-                        .map(Result::response)
-                        .doOnNext(response -> {
-                            nextLink = GitHubHeaderLinksExtractor.extractNext(response);
-                        })
-                        .map(Response::body)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(userDtoList -> {
-                            Log.d(TAG, "initListeners: ");
-                        });
-            }
-        });
+        button.setOnClickListener(v -> presenter.onButtonClick());
     }
 
     @Override

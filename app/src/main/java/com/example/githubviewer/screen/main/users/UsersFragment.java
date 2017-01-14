@@ -26,6 +26,7 @@ public class UsersFragment extends BaseMainFragment implements UsersContract.Vie
     protected RecyclerView recyclerView;
 
     private UsersRecyclerAdapter adapter;
+    private LinearLayoutManager layoutManager;
 
     private UsersContract.Presenter presenter;
 
@@ -57,8 +58,9 @@ public class UsersFragment extends BaseMainFragment implements UsersContract.Vie
                 R.color.refresh_three, R.color.refresh_four, R.color.refresh_five);
 
         adapter = new UsersRecyclerAdapter();
+        layoutManager = new LinearLayoutManager(getContext());
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
@@ -66,6 +68,19 @@ public class UsersFragment extends BaseMainFragment implements UsersContract.Vie
         registerSecondClickReceiver(() -> recyclerView.smoothScrollToPosition(0));
 
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.requestUsers());
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastPosition = layoutManager.getItemCount() - 1;
+                int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+                boolean lastItem = lastVisiblePosition == lastPosition;
+                if (lastItem) {
+                    presenter.requestNextUsers();
+                }
+            }
+        });
     }
 
     @Override

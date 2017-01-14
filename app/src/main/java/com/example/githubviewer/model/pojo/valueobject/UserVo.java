@@ -1,14 +1,20 @@
 package com.example.githubviewer.model.pojo.valueobject;
 
 public class UserVo {
-    private String firstName;
-    private String lastName;
-    private String age;
+    private Integer id;
+    private String login;
+    private String avatarUrl;
+    private String type;
+    private String name;
+    private String company;
 
     private UserVo(Builder builder) {
-        firstName = builder.firstName;
-        lastName = builder.lastName;
-        age = builder.age;
+        id = builder.id;
+        login = builder.login;
+        avatarUrl = builder.avatarUrl;
+        type = builder.type;
+        name = builder.name;
+        company = builder.company;
     }
 
     public static Builder newBuilder() {
@@ -17,44 +23,77 @@ public class UserVo {
 
     public static Builder newBuilder(UserVo copy) {
         Builder builder = new Builder();
-        builder.firstName = copy.firstName;
-        builder.lastName = copy.lastName;
-        builder.age = copy.age;
+        builder.id = copy.id;
+        builder.login = copy.login;
+        builder.avatarUrl = copy.avatarUrl;
+        builder.type = copy.type;
+        builder.name = copy.name;
+        builder.company = copy.company;
         return builder;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Integer getId() {
+        return id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLogin() {
+        return login;
     }
 
-    public String getAge() {
-        return age;
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCompany() {
+        return company;
     }
 
     public static final class Builder {
-        private String firstName;
-        private String lastName;
-        private String age;
+        private Integer id;
+        private String login;
+        private String avatarUrl;
+        private String type;
+        private String name;
+        private String company;
 
         private Builder() {
         }
 
-        public Builder firstName(String val) {
-            firstName = val;
+        public Builder id(Integer val) {
+            id = val;
             return this;
         }
 
-        public Builder lastName(String val) {
-            lastName = val;
+        public Builder login(String val) {
+            login = val;
             return this;
         }
 
-        public Builder age(String val) {
-            age = val;
+        public Builder avatarUrl(String val) {
+            avatarUrl = val;
+            return this;
+        }
+
+        public Builder type(String val) {
+            type = val;
+            return this;
+        }
+
+        public Builder name(String val) {
+            name = val;
+            return this;
+        }
+
+        public Builder company(String val) {
+            company = val;
             return this;
         }
 
