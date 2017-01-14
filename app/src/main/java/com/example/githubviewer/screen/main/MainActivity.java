@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -19,6 +21,8 @@ import java.util.List;
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity {
+    @BindView(R.id.toolbar)
+    protected Toolbar toolbar;
     @BindView(R.id.container_view_group)
     protected ViewGroup containerViewGroup;
     @BindView(R.id.bottom_navigation)
@@ -29,8 +33,17 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initToolbar();
         initBottomNavigation();
+
         showFragment(containerViewGroup.getId(), MenuTab.USERS.fragment());
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(toolbar);
+
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.white));
+        setTitle("Main Screen");
     }
 
     private void initBottomNavigation() {
@@ -47,6 +60,7 @@ public class MainActivity extends BaseActivity {
         bottomNavigation.setColored(true);
         bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
             if (wasSelected) {
+                // TODO: Отрпавлять событие во фрагмент (для прокрутки к верху списка, например)
                 return false;
             }
 
