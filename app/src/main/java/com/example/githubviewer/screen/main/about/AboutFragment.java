@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.githubviewer.screen.base.BaseFragment;
 import com.example.githubviewer.R;
+import com.example.githubviewer.screen.base.BaseFragment;
 
 import butterknife.BindView;
 
@@ -29,18 +29,6 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
         this.presenter = presenter;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        presenter.start();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        presenter.stop();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -55,18 +43,22 @@ public class AboutFragment extends BaseFragment implements AboutContract.View {
     }
 
     private void initListeners() {
-        button.setOnClickListener(v -> {
-            presenter.onButtonClick();
-        });
+        button.setOnClickListener(v -> presenter.onButtonClick());
     }
 
     @Override
-    public void showMessage(String message) {
-        Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+    public void onStop() {
+        super.onStop();
+        presenter.stop();
     }
 
     @Override
     public boolean isActive() {
         return isAdded();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
     }
 }

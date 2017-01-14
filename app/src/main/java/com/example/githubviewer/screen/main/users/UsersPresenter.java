@@ -21,11 +21,6 @@ public class UsersPresenter implements UsersContract.Presenter {
     }
 
     @Override
-    public void start() {
-
-    }
-
-    @Override
     public void requestUsers() {
         // TODO: Replace with data
 

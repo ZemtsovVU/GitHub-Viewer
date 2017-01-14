@@ -9,12 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.githubviewer.screen.base.BaseFragment;
 import com.example.githubviewer.R;
+import com.example.githubviewer.screen.base.BaseFragment;
 
 import butterknife.BindView;
 
-@SuppressWarnings("CodeBlock2Expr")
 public class ReposFragment extends BaseFragment implements ReposContract.View {
     @BindView(R.id.button)
     protected Button button;
@@ -28,18 +27,6 @@ public class ReposFragment extends BaseFragment implements ReposContract.View {
     @Override
     public void setPresenter(@NonNull ReposContract.Presenter presenter) {
         this.presenter = presenter;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        presenter.start();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        presenter.stop();
     }
 
     @Nullable
@@ -56,18 +43,22 @@ public class ReposFragment extends BaseFragment implements ReposContract.View {
     }
 
     private void initListeners() {
-        button.setOnClickListener(v -> {
-            presenter.onButtonClick();
-        });
+        button.setOnClickListener(v -> presenter.onButtonClick());
     }
 
     @Override
-    public void showMessage(String message) {
-        Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+    public void onStop() {
+        super.onStop();
+        presenter.stop();
     }
 
     @Override
     public boolean isActive() {
         return isAdded();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
     }
 }
