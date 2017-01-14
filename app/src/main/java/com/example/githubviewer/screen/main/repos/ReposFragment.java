@@ -14,6 +14,7 @@ import com.example.githubviewer.R;
 import com.example.githubviewer.injection.ComponentProvider;
 import com.example.githubviewer.model.data.source.GitHubApi;
 import com.example.githubviewer.screen.main.BaseMainFragment;
+import com.example.githubviewer.util.GitHubHeaderLinksExtractor;
 
 import butterknife.BindView;
 import retrofit2.Response;
@@ -63,16 +64,23 @@ public class ReposFragment extends BaseMainFragment implements ReposContract.Vie
 
             if (firstRequest) {
                 api.users()
+                        .map(Result::response)
+                        .doOnNext(response -> {
+                            firstRequest = false;
+                            nextLink = GitHubHeaderLinksExtractor.extractNext(response);
+                        })
+                        .map(Response::body)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(listResult -> {
-                            firstRequest = false;
-                            String linksString = listResult.response().headers().get("Link");
-                            nextLink = nextFromGitHubLinks(linksString);
+                        .subscribe(userDtoList -> {
+                            Log.d(TAG, "initListeners: ");
                         });
             } else {
                 api.usersPaginate(nextLink)
                         .map(Result::response)
+                        .doOnNext(response -> {
+                            nextLink = GitHubHeaderLinksExtractor.extractNext(response);
+                        })
                         .map(Response::body)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -81,36 +89,6 @@ public class ReposFragment extends BaseMainFragment implements ReposContract.Vie
                         });
             }
         });
-    }
-
-    private String nextFromGitHubLinks(String linksString) {
-        String nextLink = null;
-        String[] links = linksString.split(",");
-        for (String link : links) {
-            String[] segments = link.split(";");
-
-            if (segments.length < 2) {
-                continue;
-            }
-
-            if (!segments[1].contains("next")) {
-                continue;
-            }
-
-            nextLink = segments[0].trim();
-
-            if (nextLink.startsWith("<")) {
-                nextLink = nextLink.substring(1, nextLink.length());
-            }
-
-            if (nextLink.endsWith(">")) {
-                nextLink = nextLink.substring(0, nextLink.length() - 1);
-            }
-
-            break;
-        }
-
-        return nextLink;
     }
 
     @Override
