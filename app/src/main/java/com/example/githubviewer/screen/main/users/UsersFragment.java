@@ -14,12 +14,14 @@ import android.view.ViewGroup;
 import com.example.githubviewer.R;
 import com.example.githubviewer.model.pojo.valueobject.UserVo;
 import com.example.githubviewer.screen.base.BaseFragment;
+import com.example.githubviewer.screen.main.OnSecondClickListener;
 
 import java.util.List;
 
 import butterknife.BindView;
 
-public class UsersFragment extends BaseFragment implements UsersContract.View {
+public class UsersFragment extends BaseFragment
+        implements UsersContract.View, OnSecondClickListener {
     @BindView(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view)
@@ -64,6 +66,11 @@ public class UsersFragment extends BaseFragment implements UsersContract.View {
 
     private void initListeners() {
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.requestUsers());
+    }
+
+    @Override
+    public void onSecondClick() {
+        recyclerView.smoothScrollToPosition(0);
     }
 
     @Override

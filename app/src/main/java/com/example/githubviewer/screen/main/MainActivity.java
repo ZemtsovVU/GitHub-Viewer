@@ -14,6 +14,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.githubviewer.R;
 import com.example.githubviewer.screen.base.BaseActivity;
+import com.example.githubviewer.screen.exception.NotImplementedException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,13 +61,26 @@ public class MainActivity extends BaseActivity {
         bottomNavigation.setColored(true);
         bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
             if (wasSelected) {
-                // TODO: Отрпавлять событие во фрагмент (для прокрутки к верху списка, например)
+                deliverSecondClick();
                 return false;
             }
 
             showFragment(containerViewGroup.getId(), MenuTab.get(position).fragment());
             return true;
         });
+    }
+
+    private void deliverSecondClick() {
+        // TODO: Че-то как-то не очень... подумать как можно исправить.
+        Fragment f = getSupportFragmentManager().findFragmentById(containerViewGroup.getId());
+        try {
+            OnSecondClickListener onSecondClickListener = (OnSecondClickListener) f;
+            onSecondClickListener.onSecondClick();
+        } catch (ClassCastException e) {
+            String interfaceName = OnSecondClickListener.class.getSimpleName();
+            String className = f.getClass().getSimpleName();
+            throw new NotImplementedException(interfaceName, className);
+        }
     }
 
     @Override
