@@ -10,13 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.githubviewer.R;
-import com.example.githubviewer.screen.base.BaseFragment;
-import com.example.githubviewer.screen.main.OnSecondClickListener;
+import com.example.githubviewer.screen.main.BaseMainFragment;
 
 import butterknife.BindView;
 
-public class ReposFragment extends BaseFragment
-        implements ReposContract.View, OnSecondClickListener {
+public class ReposFragment extends BaseMainFragment implements ReposContract.View {
     @BindView(R.id.button)
     protected Button button;
 
@@ -45,12 +43,11 @@ public class ReposFragment extends BaseFragment
     }
 
     private void initListeners() {
+        registerSecondClickReceiver(() -> {
+
+        });
+
         button.setOnClickListener(v -> presenter.onButtonClick());
-    }
-
-    @Override
-    public void onSecondClick() {
-
     }
 
     @Override

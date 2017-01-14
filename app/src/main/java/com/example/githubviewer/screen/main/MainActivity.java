@@ -14,20 +14,23 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.githubviewer.R;
 import com.example.githubviewer.screen.base.BaseActivity;
-import com.example.githubviewer.screen.exception.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import rx.Observable;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements SecondClickRegistrator {
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
     @BindView(R.id.container_view_group)
     protected ViewGroup containerViewGroup;
     @BindView(R.id.bottom_navigation)
     protected AHBottomNavigation bottomNavigation;
+
+    private List<SecondClickReceiver> secondClickReceiverList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,26 +64,14 @@ public class MainActivity extends BaseActivity {
         bottomNavigation.setColored(true);
         bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
             if (wasSelected) {
-                deliverSecondClick();
+                Observable.from(secondClickReceiverList)
+                        .subscribe(SecondClickReceiver::onSecondClick);
                 return false;
             }
 
             showFragment(containerViewGroup.getId(), MenuTab.get(position).fragment());
             return true;
         });
-    }
-
-    private void deliverSecondClick() {
-        // TODO: Че-то как-то не очень... подумать как можно исправить.
-        Fragment f = getSupportFragmentManager().findFragmentById(containerViewGroup.getId());
-        try {
-            OnSecondClickListener onSecondClickListener = (OnSecondClickListener) f;
-            onSecondClickListener.onSecondClick();
-        } catch (ClassCastException e) {
-            String interfaceName = OnSecondClickListener.class.getSimpleName();
-            String className = f.getClass().getSimpleName();
-            throw new NotImplementedException(interfaceName, className);
-        }
     }
 
     @Override
@@ -90,5 +81,15 @@ public class MainActivity extends BaseActivity {
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .replace(container, fragment, fragment.getClass().getSimpleName())
                 .commit();
+    }
+
+    @Override
+    public void registerSecondClickReceiver(SecondClickReceiver secondClickReceiver) {
+        secondClickReceiverList.add(secondClickReceiver);
+    }
+
+    @Override
+    public void unregisterSecondClickReceiver(SecondClickReceiver secondClickReceiver) {
+        secondClickReceiverList.remove(secondClickReceiver);
     }
 }
