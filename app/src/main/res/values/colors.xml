@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#FF8F00</color>
+    <color name="colorPrimaryDark">#EF6C00</color>
+    <color name="colorAccent">#D84315</color>
 
     <color name="tab_one">#CDDC39</color>
     <color name="tab_two">#FFEB3B</color>
     <color name="tab_three">#FFC107</color>
-    <color name="tab_four">#FF9800</color>
-    <color name="tab_five">#FF5722</color>
+
+    <color name="refresh_one">#CDDC39</color>
+    <color name="refresh_two">#FFEB3B</color>
+    <color name="refresh_three">#FFC107</color>
+    <color name="refresh_four">#FF9800</color>
+    <color name="refresh_five">#FF5722</color>
+
+    <array name="refresh_colors">
+        <item>@color/refresh_one</item>
+        <item>@color/refresh_two</item>
+        <item>@color/refresh_three</item>
+        <item>@color/refresh_four</item>
+        <item>@color/refresh_five</item>
+    </array>
 </resources>

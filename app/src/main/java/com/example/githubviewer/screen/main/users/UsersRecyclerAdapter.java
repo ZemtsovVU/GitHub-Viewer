@@ -55,6 +55,10 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyDataSetChanged();
     }
 
+    public void addUsers(List<UserVo> userList) {
+        // TODO: Need to implement
+    }
+
     private void decorateItemList() {
         int listSize = itemList.size();
         int shift = 0;
