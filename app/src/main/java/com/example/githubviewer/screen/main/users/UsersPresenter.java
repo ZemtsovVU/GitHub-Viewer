@@ -31,14 +31,13 @@ public class UsersPresenter implements UsersContract.Presenter {
         this.view.setPresenter(this);
 
         api = ComponentProvider.getInstance().getApiComponent().getGitHubApiInterface();
+
+        usersSubscription = Observable.empty().subscribe();
     }
 
     @Override
     public void requestUsers() {
-        if (usersSubscription != null) {
-            usersSubscription.unsubscribe();
-        }
-
+        usersSubscription.unsubscribe();
         usersSubscription = api.users()
                 .map(Result::response)
                 .doOnNext(response ->
