@@ -17,4 +17,8 @@
         Try to tap on the screen to refresh the content.
     </string>
     <string name="state_develop_message">Screen in development</string>
+    <string name="three_dots">…</string>
+    <string name="user_id">ID: %d</string>
+    <string name="user_login">Login: %s</string>
+    <string name="user_type">Type: %s</string>
 </resources>

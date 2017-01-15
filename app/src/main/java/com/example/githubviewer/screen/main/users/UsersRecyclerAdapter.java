@@ -1,15 +1,19 @@
 package com.example.githubviewer.screen.main.users;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.githubviewer.R;
 import com.example.githubviewer.model.pojo.valueobject.AdVo;
 import com.example.githubviewer.model.pojo.valueobject.ProgressVo;
 import com.example.githubviewer.model.pojo.valueobject.UserVo;
+import com.example.githubviewer.screen.base.BaseRecyclerViewHolder;
 import com.example.githubviewer.screen.exception.NoSuchRecyclerItemTypeException;
 import com.example.githubviewer.screen.exception.NoSuchRecyclerViewTypeException;
 import com.example.githubviewer.util.L;
@@ -19,12 +23,17 @@ import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import rx.Observable;
+import rx.subjects.PublishSubject;
 
 public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static PublishSubject<AdVo> adPublishSubject = PublishSubject.create();
+    private static PublishSubject<UserVo> userPublishSubject = PublishSubject.create();
+
     private List itemList = new ArrayList();
 
+    @SuppressWarnings("unchecked")
     public UsersRecyclerAdapter() {
         itemList.add(new ProgressVo());
     }
@@ -48,6 +57,14 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemCount() {
         return itemList.size();
+    }
+
+    public Observable<AdVo> asAdObservable() {
+        return adPublishSubject;
+    }
+
+    public Observable<UserVo> asUserObservable() {
+        return userPublishSubject;
     }
 
     public void hideFooterProgress() {
@@ -94,7 +111,8 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         int shift = 0;
         for (int i = 1; i < userListSize; i++) {
             if (i % 7 == 0) {
-                decoratedList.add(i + shift, AdVo.newBuilder().title("Ad " + i).build());
+                AdVo ad = AdVo.newBuilder().title("Place for your advertising").build();
+                decoratedList.add(i + shift, ad);
                 shift++;
             }
         }
@@ -224,38 +242,58 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         abstract void bind(RecyclerView.ViewHolder holder, Object item);
     }
 
-    protected static class ProgressViewHolder extends RecyclerView.ViewHolder {
+    protected static class ProgressViewHolder extends BaseRecyclerViewHolder {
 
         public ProgressViewHolder(View itemView) {
             super(itemView);
         }
     }
 
-    protected static class AdViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.text_view)
-        protected TextView textView;
+    protected static class AdViewHolder extends BaseRecyclerViewHolder {
+        @BindView(R.id.ad_text_view)
+        protected TextView adTextView;
 
         public AdViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
         }
 
         public void bind(AdVo ad) {
-            textView.setText(ad.getTitle());
+            adTextView.setText(ad.getTitle());
+
+            itemView.setOnClickListener(view -> adPublishSubject.onNext(ad));
         }
     }
 
-    protected static class UserViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.text_view)
-        protected TextView textView;
+    protected static class UserViewHolder extends BaseRecyclerViewHolder {
+        @BindView(R.id.avatar_image_view)
+        protected ImageView avatarImageView;
+        @BindView(R.id.id_text_view)
+        protected TextView idTextView;
+        @BindView(R.id.login_text_view)
+        protected TextView loginTextView;
+        @BindView(R.id.type_text_view)
+        protected TextView typeTextView;
 
         public UserViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
         }
 
         public void bind(UserVo user) {
-            textView.setText(user.getLogin());
+            Context context = itemView.getContext();
+
+            Glide.with(context)
+                    .load(user.getAvatarUrl())
+                    .placeholder(R.drawable.ic_avatar_placeholder)
+                    .error(R.drawable.ic_avatar_placeholder)
+                    .bitmapTransform(new CropCircleTransformation(context))
+                    .crossFade()
+                    .into(avatarImageView);
+
+            idTextView.setText(context.getString(R.string.user_id, user.getId()));
+            loginTextView.setText(context.getString(R.string.user_login, user.getLogin()));
+            typeTextView.setText(context.getString(R.string.user_type, user.getType()));
+
+            itemView.setOnClickListener(view -> userPublishSubject.onNext(user));
         }
     }
 }

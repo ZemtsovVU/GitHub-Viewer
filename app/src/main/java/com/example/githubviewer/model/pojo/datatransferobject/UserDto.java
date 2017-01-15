@@ -8,7 +8,7 @@ public class UserDto {
     public Integer id;
     @SerializedName("login")
     private String login;
-    @SerializedName("avaprivatel")
+    @SerializedName("avatar_url")
     private String avatarUrl;
     @SerializedName("gravatar_id")
     private String gravatarId;
