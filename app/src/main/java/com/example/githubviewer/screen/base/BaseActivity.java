@@ -37,6 +37,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
+    protected void showHomeAsUp() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
     protected void showFragment(@IdRes int container, @NonNull Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
