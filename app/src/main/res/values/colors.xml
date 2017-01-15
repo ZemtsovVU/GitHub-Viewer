@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF8F00</color>
+    <color name="colorPrimaryDark">#EF6C00</color>
+    <color name="colorAccent">#D84315</color>
+
+    <color name="tab_one">#CDDC39</color>
+    <color name="tab_two">#FFEB3B</color>
+    <color name="tab_three">#FFC107</color>
+
+    <color name="refresh_one">#CDDC39</color>
+    <color name="refresh_two">#FFEB3B</color>
+    <color name="refresh_three">#FFC107</color>
+    <color name="refresh_four">#FF9800</color>
+    <color name="refresh_five">#FF5722</color>
+
+    <color name="empty_background">#BCAAA4</color>
+    <color name="cell_background">#EFEBE9</color>
+</resources>
