@@ -15,4 +15,5 @@
     <color name="refresh_five">#FF5722</color>
 
     <color name="empty_background">#BCAAA4</color>
+    <color name="cell_background">#EFEBE9</color>
 </resources>
