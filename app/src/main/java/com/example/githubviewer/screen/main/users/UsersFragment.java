@@ -76,6 +76,14 @@ public class UsersFragment extends BaseMainFragment implements UsersContract.Vie
 
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.requestUsers());
 
+        adapter.asAdObservable().subscribe(ad -> {
+            showMessage(getString(R.string.show_ad_message));
+        });
+
+        adapter.asUserObservable().subscribe(user -> {
+
+        });
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

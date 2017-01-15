@@ -21,4 +21,5 @@
     <string name="user_id">ID: %d</string>
     <string name="user_login">Login: %s</string>
     <string name="user_type">Type: %s</string>
+    <string name="show_ad_message">Show your ad…</string>
 </resources>
