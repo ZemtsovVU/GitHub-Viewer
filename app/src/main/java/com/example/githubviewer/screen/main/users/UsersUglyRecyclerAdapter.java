@@ -15,6 +15,9 @@ import com.example.githubviewer.screen.exception.NoSuchRecyclerViewTypeException
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Пример "традиционного" адаптера. Для статьи на хабре.
+ */
 public class UsersUglyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_PROGRESS = 10;
     private static final int TYPE_AD = 20;
