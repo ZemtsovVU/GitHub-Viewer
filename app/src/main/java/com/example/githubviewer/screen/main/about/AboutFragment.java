@@ -3,21 +3,14 @@ package com.example.githubviewer.screen.main.about;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.githubviewer.R;
 import com.example.githubviewer.screen.main.BaseMainFragment;
 
-import butterknife.BindView;
-
 public class AboutFragment extends BaseMainFragment implements AboutContract.View {
-    @BindView(R.id.button)
-    protected Button button;
-
     private AboutContract.Presenter presenter;
 
     public static AboutFragment newInstance() {
@@ -47,8 +40,6 @@ public class AboutFragment extends BaseMainFragment implements AboutContract.Vie
         registerSecondClickReceiver(() -> {
 
         });
-
-        button.setOnClickListener(v -> presenter.onButtonClick());
     }
 
     @Override
@@ -64,6 +55,6 @@ public class AboutFragment extends BaseMainFragment implements AboutContract.Vie
 
     @Override
     public void showMessage(String message) {
-        Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
+//        Snackbar.make(button, message, Snackbar.LENGTH_SHORT).show();
     }
 }

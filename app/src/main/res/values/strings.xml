@@ -6,14 +6,15 @@
     <string name="tab_users">Users</string>
     <string name="tab_repos">Repositories</string>
     <string name="tab_about">About</string>
-    <string name="empty_list_message">
+    <string name="state_empty_list_message">
         Nothing to show. Perhaps something went wrong, but we already know about it.
         \n
         Try to swipe down to refresh the content.
     </string>
-    <string name="empty_content_message">
+    <string name="state_empty_view_message">
         Nothing to show. Perhaps something went wrong, but we already know about it.
         \n
         Try to tap on the screen to refresh the content.
     </string>
+    <string name="state_develop_message">Screen in development</string>
 </resources>

@@ -19,6 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_large"
         android:gravity="center"
-        android:text="@string/empty_list_message" />
+        android:text="@string/state_empty_view_message" />
 
 </LinearLayout>
