@@ -28,13 +28,16 @@ import rx.Observable;
 import rx.subjects.PublishSubject;
 
 public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static PublishSubject<AdVo> adPublishSubject = PublishSubject.create();
-    private static PublishSubject<UserVo> userPublishSubject = PublishSubject.create();
+    private static PublishSubject<AdVo> adPublishSubject;
+    private static PublishSubject<UserVo> userPublishSubject;
 
     private List itemList = new ArrayList();
 
     @SuppressWarnings("unchecked")
     public UsersRecyclerAdapter() {
+        adPublishSubject = PublishSubject.create();
+        userPublishSubject = PublishSubject.create();
+
         itemList.add(new ProgressVo());
     }
 
