@@ -15,6 +15,7 @@ import android.widget.ViewAnimator;
 import com.example.githubviewer.R;
 import com.example.githubviewer.model.pojo.valueobject.UserVo;
 import com.example.githubviewer.screen.main.BaseMainFragment;
+import com.example.githubviewer.screen.userdetails.UserDetailsActivity;
 
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class UsersFragment extends BaseMainFragment implements UsersContract.Vie
         });
 
         adapter.asUserObservable().subscribe(user -> {
-
+            UserDetailsActivity.start(getContext(), user);
         });
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

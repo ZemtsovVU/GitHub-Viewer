@@ -22,6 +22,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".screen.userdetails.UserDetailsActivity" />
+
     </application>
 
 </manifest>

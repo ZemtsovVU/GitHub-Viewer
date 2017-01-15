@@ -1,6 +1,8 @@
 package com.example.githubviewer.model.pojo.valueobject;
 
-public class UserVo {
+import java.io.Serializable;
+
+public class UserVo implements Serializable {
     private Integer id;
     private String login;
     private String avatarUrl;
