@@ -38,6 +38,7 @@ public class UsersPresenter implements UsersContract.Presenter {
     @Override
     public void requestUsers() {
         usersSubscription.unsubscribe();
+
         usersSubscription = api.users()
                 .map(Result::response)
                 .doOnNext(response ->
@@ -50,15 +51,21 @@ public class UsersPresenter implements UsersContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         userVoList -> {
+                            if (userVoList == null || userVoList.isEmpty()) {
+                                view.onEmptyState();
+                                return;
+                            }
+
+                            view.onContentState();
                             view.setUsers(userVoList);
                             usersSubscription.unsubscribe();
                         },
                         throwable -> {
-                            view.setUsers(null);
+                            view.onEmptyState();
                             usersSubscription.unsubscribe();
 
                             L.printStackTrace(throwable);
-                            view.showMessage(throwable.getLocalizedMessage()); // TODO: Заменить на пустое состояние
+                            view.showMessage(throwable.getLocalizedMessage());
                         }
                 );
     }
@@ -84,17 +91,19 @@ public class UsersPresenter implements UsersContract.Presenter {
                         userVoList -> {
                             if (userVoList == null || userVoList.isEmpty()) {
                                 lastPage = true;
+                                view.hideProgressFooter();
+                                return;
                             }
 
                             view.addUsers(userVoList);
                             usersSubscription.unsubscribe();
                         },
                         throwable -> {
-                            view.setUsers(null);
+                            view.scrollOnePositionUp();
                             usersSubscription.unsubscribe();
 
                             L.printStackTrace(throwable);
-                            view.showMessage(throwable.getLocalizedMessage()); // TODO: Заменить на пустое состояние
+                            view.showMessage(throwable.getLocalizedMessage());
                         }
                 );
     }

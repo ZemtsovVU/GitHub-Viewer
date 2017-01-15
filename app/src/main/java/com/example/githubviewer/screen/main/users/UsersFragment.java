@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewAnimator;
 
 import com.example.githubviewer.R;
 import com.example.githubviewer.model.pojo.valueobject.UserVo;
@@ -20,8 +21,13 @@ import java.util.List;
 import butterknife.BindView;
 
 public class UsersFragment extends BaseMainFragment implements UsersContract.View {
+    private static final int CONTENT_STATE = 0;
+    private static final int EMPTY_STATE = 1;
+
     @BindView(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.view_animator)
+    protected ViewAnimator viewAnimator;
     @BindView(R.id.recycler_view)
     protected RecyclerView recyclerView;
 
@@ -111,6 +117,27 @@ public class UsersFragment extends BaseMainFragment implements UsersContract.Vie
     public void addUsers(List<UserVo> userList) {
         adapter.addUsers(userList);
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onContentState() {
+        viewAnimator.setDisplayedChild(CONTENT_STATE);
+    }
+
+    @Override
+    public void onEmptyState() {
+        viewAnimator.setDisplayedChild(EMPTY_STATE);
+    }
+
+    @Override
+    public void hideProgressFooter() {
+        adapter.hideFooterProgress();
+    }
+
+    @Override
+    public void scrollOnePositionUp() {
+        int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+        layoutManager.scrollToPositionWithOffset(firstVisiblePosition, 0);
     }
 
     @Override

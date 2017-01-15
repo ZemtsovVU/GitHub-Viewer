@@ -14,6 +14,14 @@ public interface UsersContract {
 
         void addUsers(List<UserVo> userList);
 
+        void onContentState();
+
+        void onEmptyState();
+
+        void hideProgressFooter();
+
+        void scrollOnePositionUp();
+
         void showMessage(String message);
     }
 

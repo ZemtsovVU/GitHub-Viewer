@@ -14,11 +14,5 @@
     <color name="refresh_four">#FF9800</color>
     <color name="refresh_five">#FF5722</color>
 
-    <array name="refresh_colors">
-        <item>@color/refresh_one</item>
-        <item>@color/refresh_two</item>
-        <item>@color/refresh_three</item>
-        <item>@color/refresh_four</item>
-        <item>@color/refresh_five</item>
-    </array>
+    <color name="empty_background">#BCAAA4</color>
 </resources>

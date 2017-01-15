@@ -62,7 +62,6 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @SuppressWarnings("unchecked")
     public void setUsers(List<UserVo> userList) {
         if (userList == null || userList.isEmpty()) {
-            hideFooterProgress();
             return;
         }
 
@@ -74,7 +73,6 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @SuppressWarnings("unchecked")
     public void addUsers(List<UserVo> userList) {
         if (userList == null || userList.isEmpty()) {
-            hideFooterProgress();
             return;
         }
 
