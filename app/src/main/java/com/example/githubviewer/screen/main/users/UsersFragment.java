@@ -55,6 +55,7 @@ public class UsersFragment extends BaseMainFragment implements UsersContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle(R.string.users_screen_title);
         initViews();
         initListeners();
     }

@@ -39,6 +39,7 @@ public class ReposFragment extends BaseMainFragment implements ReposContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle(R.string.repos_screen_title);
         initListeners();
     }
 

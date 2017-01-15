@@ -39,6 +39,7 @@ public class AboutFragment extends BaseMainFragment implements AboutContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle(R.string.about_screen_title);
         initListeners();
     }
 

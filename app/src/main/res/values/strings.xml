@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">GitHub Viewer</string>
+    <string name="users_screen_title">Users Screen</string>
+    <string name="repos_screen_title">Repos Screen</string>
+    <string name="about_screen_title">About Screen</string>
     <string name="tab_users">Users</string>
     <string name="tab_repos">Repositories</string>
     <string name="tab_about">About</string>
