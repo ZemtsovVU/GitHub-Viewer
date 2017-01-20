@@ -27,7 +27,7 @@ public class UsersFragment extends BaseFragment implements UsersContract.View {
     @BindView(R.id.recycler_view)
     protected RecyclerView recyclerView;
 
-    private UsersRecyclerAdapter adapter;
+    private UsersRecyclerArbitraryRowAdapter adapter;
 
     private UsersContract.Presenter presenter;
 
@@ -67,7 +67,7 @@ public class UsersFragment extends BaseFragment implements UsersContract.View {
     }
 
     private void initViews() {
-        adapter = new UsersRecyclerAdapter();
+        adapter = new UsersRecyclerArbitraryRowAdapter();
 
         List<UserVo> userList = new ArrayList<>(100);
         for (int i = 0; i < 100; i++) {
