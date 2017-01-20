@@ -1,6 +1,8 @@
 package com.example.githubviewer.model.pojo.valueobject;
 
-public class AdVo {
+import java.io.Serializable;
+
+public class AdVo implements Serializable {
     private String title;
     private String description;
 

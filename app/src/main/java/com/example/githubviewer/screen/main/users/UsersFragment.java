@@ -4,30 +4,36 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewAnimator;
 
 import com.example.githubviewer.R;
 import com.example.githubviewer.model.pojo.valueobject.UserVo;
-import com.example.githubviewer.screen.base.BaseFragment;
+import com.example.githubviewer.screen.main.BaseMainFragment;
+import com.example.githubviewer.screen.userdetails.UserDetailsActivity;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 
-@SuppressWarnings("CodeBlock2Expr")
-public class UsersFragment extends BaseFragment implements UsersContract.View {
+public class UsersFragment extends BaseMainFragment implements UsersContract.View {
+    private static final int CONTENT_STATE = 0;
+    private static final int EMPTY_STATE = 1;
+
+    @BindView(R.id.swipe_refresh_layout)
+    protected SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.view_animator)
+    protected ViewAnimator viewAnimator;
     @BindView(R.id.recycler_view)
     protected RecyclerView recyclerView;
 
     private UsersRecyclerArbitraryRowAdapter adapter;
+    private LinearLayoutManager layoutManager;
 
     private UsersContract.Presenter presenter;
 
@@ -40,18 +46,6 @@ public class UsersFragment extends BaseFragment implements UsersContract.View {
         this.presenter = presenter;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        presenter.start();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        presenter.stop();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -62,39 +56,103 @@ public class UsersFragment extends BaseFragment implements UsersContract.View {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle(R.string.users_screen_title);
         initViews();
         initListeners();
     }
 
     private void initViews() {
+        swipeRefreshLayout.setColorSchemeResources(R.color.refresh_one, R.color.refresh_two,
+                R.color.refresh_three, R.color.refresh_four, R.color.refresh_five);
+
         adapter = new UsersRecyclerArbitraryRowAdapter();
+        layoutManager = new LinearLayoutManager(getContext());
 
-        List<UserVo> userList = new ArrayList<>(100);
-        for (int i = 0; i < 100; i++) {
-            userList.add(UserVo.newBuilder().firstName("User " + i).build());
-        }
-
-        Observable.timer(3, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {
-                    adapter.setUsers(userList);
-                });
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
     private void initListeners() {
+        registerSecondClickReceiver(() -> recyclerView.smoothScrollToPosition(0));
 
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.requestUsers());
+
+        adapter.asAdObservable().subscribe(ad -> showMessage(getString(R.string.show_ad_message)));
+
+        adapter.asUserObservable().subscribe(user -> presenter.onUserSelected(user));
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastPosition = layoutManager.getItemCount() - 1;
+                int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+                boolean lastItem = lastVisiblePosition == lastPosition;
+                if (lastItem) {
+                    presenter.requestNextUsers();
+                }
+            }
+        });
     }
 
     @Override
-    public void showMessage(String message) {
-        Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
+    public void onStart() {
+        super.onStart();
+        presenter.requestUsers();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.stop();
     }
 
     @Override
     public boolean isActive() {
         return isAdded();
+    }
+
+    @Override
+    public void setUsers(List<UserVo> userList) {
+        adapter.setUsers(userList);
+        recyclerView.scrollToPosition(0);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void addUsers(List<UserVo> userList) {
+        adapter.addUsers(userList);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onContentState() {
+        viewAnimator.setDisplayedChild(CONTENT_STATE);
+    }
+
+    @Override
+    public void onEmptyState() {
+        viewAnimator.setDisplayedChild(EMPTY_STATE);
+    }
+
+    @Override
+    public void hideProgressFooter() {
+        adapter.hideFooterProgress();
+    }
+
+    @Override
+    public void scrollOnePositionUp() {
+        int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+        layoutManager.scrollToPositionWithOffset(firstVisiblePosition, 0);
+    }
+
+    @Override
+    public void openUserDetailsScreen(UserVo user) {
+        UserDetailsActivity.start(getContext(), user);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
     }
 }

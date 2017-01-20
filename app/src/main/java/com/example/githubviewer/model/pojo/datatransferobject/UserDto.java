@@ -4,40 +4,66 @@ import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("ALL")
 public class UserDto {
-    @SerializedName("login")
-    public String login;
     @SerializedName("id")
     public Integer id;
+    @SerializedName("login")
+    private String login;
     @SerializedName("avatar_url")
-    public String avatarUrl;
+    private String avatarUrl;
     @SerializedName("gravatar_id")
-    public String gravatarId;
+    private String gravatarId;
     @SerializedName("url")
-    public String url;
+    private String url;
     @SerializedName("html_url")
-    public String htmlUrl;
+    private String htmlUrl;
     @SerializedName("followers_url")
-    public String followersUrl;
+    private String followersUrl;
     @SerializedName("following_url")
-    public String followingUrl;
+    private String followingUrl;
     @SerializedName("gists_url")
-    public String gistsUrl;
+    private String gistsUrl;
     @SerializedName("starred_url")
-    public String starredUrl;
+    private String starredUrl;
     @SerializedName("subscriptions_url")
-    public String subscriptionsUrl;
+    private String subscriptionsUrl;
     @SerializedName("organizations_url")
-    public String organizationsUrl;
+    private String organizationsUrl;
     @SerializedName("repos_url")
-    public String reposUrl;
+    private String reposUrl;
     @SerializedName("events_url")
-    public String eventsUrl;
+    private String eventsUrl;
     @SerializedName("received_events_url")
-    public String receivedEventsUrl;
+    private String receivedEventsUrl;
     @SerializedName("type")
-    public String type;
+    private String type;
     @SerializedName("site_admin")
-    public Boolean siteAdmin;
+    private Boolean siteAdmin;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("company")
+    private String company;
+    @SerializedName("blog")
+    private String blog;
+    @SerializedName("location")
+    private String location;
+    @SerializedName("email")
+    private String email;
+    @SerializedName("hireable")
+    private Boolean hireable;
+    @SerializedName("bio")
+    private String bio;
+    @SerializedName("public_repos")
+    private Integer publicRepos;
+    @SerializedName("public_gists")
+    private Integer publicGists;
+    @SerializedName("followers")
+    private Integer followers;
+    @SerializedName("following")
+    private Integer following;
+    @SerializedName("created_at")
+    private String createdAt;
+    @SerializedName("updated_at")
+    private String updatedAt;
 
     public String getLogin() {
         return login;
@@ -105,5 +131,57 @@ public class UserDto {
 
     public Boolean getSiteAdmin() {
         return siteAdmin;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public String getBlog() {
+        return blog;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Boolean getHireable() {
+        return hireable;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public Integer getPublicRepos() {
+        return publicRepos;
+    }
+
+    public Integer getPublicGists() {
+        return publicGists;
+    }
+
+    public Integer getFollowers() {
+        return followers;
+    }
+
+    public Integer getFollowing() {
+        return following;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 }

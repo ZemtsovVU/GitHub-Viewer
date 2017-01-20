@@ -6,6 +6,7 @@ public final class ComponentProvider {
     private static volatile ComponentProvider instance;
 
     private AppComponent appComponent;
+    private ApiComponent apiComponent;
 
     public static ComponentProvider getInstance() {
         if (instance == null) {
@@ -24,11 +25,19 @@ public final class ComponentProvider {
         appComponent = DaggerAppComponent.builder()
                 .appModule(appModule)
                 .build();
+        apiComponent = DaggerApiComponent.builder()
+                .appModule(appModule)
+                .build();
     }
 
     public AppComponent getAppComponent() {
         checkInitialized(appComponent);
         return appComponent;
+    }
+
+    public ApiComponent getApiComponent() {
+        checkInitialized(apiComponent);
+        return apiComponent;
     }
 
     private void checkInitialized(Object component) {

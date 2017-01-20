@@ -12,11 +12,6 @@ public class ReposPresenter implements ReposContract.Presenter {
     }
 
     @Override
-    public void start() {
-
-    }
-
-    @Override
     public void stop() {
 
     }
