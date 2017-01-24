@@ -5,10 +5,12 @@ import android.view.View;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseRecyclerViewHolder extends RecyclerView.ViewHolder {
+public abstract class ArbitraryCellHolder<T> extends RecyclerView.ViewHolder {
 
-    public BaseRecyclerViewHolder(View itemView) {
+    public ArbitraryCellHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
+
+    public abstract void bind(T item);
 }

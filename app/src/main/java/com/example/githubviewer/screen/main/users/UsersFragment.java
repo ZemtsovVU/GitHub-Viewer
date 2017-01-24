@@ -32,7 +32,7 @@ public class UsersFragment extends BaseMainFragment implements UsersContract.Vie
     @BindView(R.id.recycler_view)
     protected RecyclerView recyclerView;
 
-    private UsersRecyclerArbitraryRowAdapter adapter;
+    private UsersArbitraryCellAdapter adapter;
     private LinearLayoutManager layoutManager;
 
     private UsersContract.Presenter presenter;
@@ -65,7 +65,7 @@ public class UsersFragment extends BaseMainFragment implements UsersContract.Vie
         swipeRefreshLayout.setColorSchemeResources(R.color.refresh_one, R.color.refresh_two,
                 R.color.refresh_three, R.color.refresh_four, R.color.refresh_five);
 
-        adapter = new UsersRecyclerArbitraryRowAdapter();
+        adapter = new UsersArbitraryCellAdapter();
         layoutManager = new LinearLayoutManager(getContext());
 
         recyclerView.setLayoutManager(layoutManager);

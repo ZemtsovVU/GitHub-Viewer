@@ -13,9 +13,9 @@ import com.example.githubviewer.R;
 import com.example.githubviewer.model.pojo.valueobject.AdVo;
 import com.example.githubviewer.model.pojo.valueobject.ProgressVo;
 import com.example.githubviewer.model.pojo.valueobject.UserVo;
-import com.example.githubviewer.screen.base.BaseRecyclerArbitraryRowAdapter;
-import com.example.githubviewer.screen.base.BaseRecyclerViewHolder;
-import com.example.githubviewer.screen.base.RecyclerRow;
+import com.example.githubviewer.screen.base.ArbitraryCellAdapter;
+import com.example.githubviewer.screen.base.ArbitraryCellHolder;
+import com.example.githubviewer.screen.base.ArbitraryCellSelector;
 import com.example.githubviewer.util.L;
 
 import java.util.ArrayList;
@@ -27,13 +27,13 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 
-public class UsersRecyclerArbitraryRowAdapter extends BaseRecyclerArbitraryRowAdapter {
+public class UsersArbitraryCellAdapter extends ArbitraryCellAdapter {
     private PublishSubject<AdVo> adPublishSubject = PublishSubject.create();
     private PublishSubject<UserVo> userPublishSubject = PublishSubject.create();
 
     @SuppressWarnings("unchecked")
-    public UsersRecyclerArbitraryRowAdapter() {
-        RecyclerRow.Row progressRow = new RecyclerRow.Row() {
+    public UsersArbitraryCellAdapter() {
+        ArbitraryCellSelector.Cell progressCell = new ArbitraryCellSelector.Cell() {
             @Override
             public boolean is(Object item) {
                 return item instanceof ProgressVo;
@@ -56,7 +56,7 @@ public class UsersRecyclerArbitraryRowAdapter extends BaseRecyclerArbitraryRowAd
                 // Do nothing.
             }
         };
-        RecyclerRow.Row adRow = new RecyclerRow.Row() {
+        ArbitraryCellSelector.Cell adCell = new ArbitraryCellSelector.Cell() {
             @Override
             public boolean is(Object item) {
                 return item instanceof AdVo;
@@ -85,7 +85,7 @@ public class UsersRecyclerArbitraryRowAdapter extends BaseRecyclerArbitraryRowAd
                 }
             }
         };
-        RecyclerRow.Row userRow = new RecyclerRow.Row() {
+        ArbitraryCellSelector.Cell userCell = new ArbitraryCellSelector.Cell() {
             @Override
             public boolean is(Object item) {
                 return item instanceof UserVo;
@@ -115,9 +115,9 @@ public class UsersRecyclerArbitraryRowAdapter extends BaseRecyclerArbitraryRowAd
             }
         };
 
-        this.recyclerRow.addRow(progressRow);
-        this.recyclerRow.addRow(adRow);
-        this.recyclerRow.addRow(userRow);
+        this.arbitraryCellSelector.addCell(progressCell);
+        this.arbitraryCellSelector.addCell(adCell);
+        this.arbitraryCellSelector.addCell(userCell);
 
         this.itemList.add(new ProgressVo());
     }
@@ -195,14 +195,19 @@ public class UsersRecyclerArbitraryRowAdapter extends BaseRecyclerArbitraryRowAd
                 });
     }
 
-    protected class ProgressViewHolder extends BaseRecyclerViewHolder {
+    protected class ProgressViewHolder extends ArbitraryCellHolder<ProgressVo> {
 
         public ProgressViewHolder(View itemView) {
             super(itemView);
         }
+
+        @Override
+        public void bind(ProgressVo item) {
+            // Do nothing.
+        }
     }
 
-    protected class AdViewHolder extends BaseRecyclerViewHolder {
+    protected class AdViewHolder extends ArbitraryCellHolder<AdVo> {
         @BindView(R.id.ad_text_view)
         protected TextView adTextView;
 
@@ -210,14 +215,15 @@ public class UsersRecyclerArbitraryRowAdapter extends BaseRecyclerArbitraryRowAd
             super(itemView);
         }
 
-        public void bind(AdVo ad) {
-            adTextView.setText(ad.getTitle());
+        @Override
+        public void bind(AdVo item) {
+            adTextView.setText(item.getTitle());
 
-            itemView.setOnClickListener(view -> adPublishSubject.onNext(ad));
+            itemView.setOnClickListener(view -> adPublishSubject.onNext(item));
         }
     }
 
-    protected class UserViewHolder extends BaseRecyclerViewHolder {
+    protected class UserViewHolder extends ArbitraryCellHolder<UserVo> {
         @BindView(R.id.avatar_image_view)
         protected ImageView avatarImageView;
         @BindView(R.id.id_text_view)
@@ -231,22 +237,23 @@ public class UsersRecyclerArbitraryRowAdapter extends BaseRecyclerArbitraryRowAd
             super(itemView);
         }
 
-        public void bind(UserVo user) {
+        @Override
+        public void bind(UserVo item) {
             Context context = itemView.getContext();
 
             Glide.with(context)
-                    .load(user.getAvatarUrl())
+                    .load(item.getAvatarUrl())
                     .placeholder(R.drawable.ic_avatar_placeholder)
                     .error(R.drawable.ic_avatar_placeholder)
                     .bitmapTransform(new CropCircleTransformation(context))
                     .crossFade()
                     .into(avatarImageView);
 
-            idTextView.setText(context.getString(R.string.user_id, user.getId()));
-            loginTextView.setText(context.getString(R.string.user_login, user.getLogin()));
-            typeTextView.setText(context.getString(R.string.user_type, user.getType()));
+            idTextView.setText(context.getString(R.string.user_id, item.getId()));
+            loginTextView.setText(context.getString(R.string.user_login, item.getLogin()));
+            typeTextView.setText(context.getString(R.string.user_type, item.getType()));
 
-            itemView.setOnClickListener(view -> userPublishSubject.onNext(user));
+            itemView.setOnClickListener(view -> userPublishSubject.onNext(item));
         }
     }
 }

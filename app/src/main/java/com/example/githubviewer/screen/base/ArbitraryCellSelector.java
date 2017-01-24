@@ -8,36 +8,37 @@ import com.example.githubviewer.screen.exception.NoSuchRecyclerRowException;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class RecyclerRow {
-    private List<Row> rowList = new ArrayList<>();
+@SuppressWarnings("unused")
+public final class ArbitraryCellSelector {
+    private List<Cell> cellList = new ArrayList<>();
 
-    public void addRow(Row row) {
-        rowList.add(row);
+    public void addCell(Cell cell) {
+        cellList.add(cell);
     }
 
-    public void removeRow(Row row) {
-        rowList.remove(row);
+    public void removeCell(Cell cell) {
+        cellList.remove(cell);
     }
 
-    public Row getRow(Object item) {
-        for (Row row : rowList) {
-            if (row.is(item)) {
-                return row;
+    public Cell getCell(Object item) {
+        for (Cell cell : cellList) {
+            if (cell.is(item)) {
+                return cell;
             }
         }
         throw new NoSuchRecyclerRowException();
     }
 
-    public Row getRow(int viewType) {
-        for (Row row : rowList) {
-            if (row.type() == viewType) {
-                return row;
+    public Cell getCell(int viewType) {
+        for (Cell cell : cellList) {
+            if (cell.type() == viewType) {
+                return cell;
             }
         }
         throw new NoSuchRecyclerRowException();
     }
 
-    public interface Row {
+    public interface Cell {
 
         boolean is(Object item);
 

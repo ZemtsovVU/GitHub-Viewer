@@ -6,25 +6,25 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseRecyclerArbitraryRowAdapter
+public abstract class ArbitraryCellAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    protected RecyclerRow recyclerRow = new RecyclerRow();
+    protected ArbitraryCellSelector arbitraryCellSelector = new ArbitraryCellSelector();
     protected List itemList = new ArrayList();
 
     @Override
     public final int getItemViewType(int position) {
-        return recyclerRow.getRow(itemList.get(position)).type();
+        return arbitraryCellSelector.getCell(itemList.get(position)).type();
     }
 
     @Override
     public final RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return recyclerRow.getRow(viewType).holder(parent);
+        return arbitraryCellSelector.getCell(viewType).holder(parent);
     }
 
     @Override
     public final void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Object item = itemList.get(position);
-        recyclerRow.getRow(item).bind(holder, item);
+        arbitraryCellSelector.getCell(item).bind(holder, item);
     }
 
     @Override
